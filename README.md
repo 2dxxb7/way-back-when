@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Way Back When
 
-## Getting Started
+**Way Back When** is a random portal for forgotten internet culture.
 
-First, run the development server:
+It uses archived snapshots from the Internet Archive's Wayback Machine to send users into old websites, blogs, scenes, and digital ruins from different eras of the web.
+
+Think of it like StumbleUpon for the dead internet.
+
+Every click is a lost room.
+
+---
+
+## Live Demo
+
+Coming soon.
+
+---
+
+## Preview
+
+> Add screenshot here after deployment.
+
+---
+
+## Concept
+
+The modern internet feels compressed into the same few platforms. Way Back When is built to rediscover the older, stranger, more personal web — fashion blogs, rap blogs, personal sites, forums, old brand pages, and forgotten digital artifacts.
+
+Each portal pull hits the Wayback Machine's availability API to find a real archived snapshot, then surfaces the link for you to explore.
+
+---
+
+## Features
+
+- Random archived website generator
+- Era filters (Late 90s, Y2K, Blog Era, Tumblr Era, Pre-Algorithm)
+- Category filters (fashion, rap blogs, music, personal sites, forums, streetwear, anime, gaming, art, weird web, brand archives)
+- Vibe tags
+- Chaos Mode — ignores all filters, picks anything from any era
+- Saved discoveries (stored locally in your browser)
+- Wayback Machine snapshot links that open in a new tab
+- Press `Space` to reroll
+- Nostalgic terminal-style interface
+
+---
+
+## Tech Stack
+
+- [Next.js](https://nextjs.org/) (App Router)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS v4](https://tailwindcss.com/)
+- [Internet Archive Wayback Machine API](https://archive.org/help/wayback_api.php)
+
+---
+
+## Local Development
 
 ```bash
+# Install dependencies
+npm install
+
+# Start the dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Build for production
+npm run build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Run production server
+npm start
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Adding More Seed Sites
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The curated list of seed sites lives in [`data/seeds.ts`](data/seeds.ts).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Each entry looks like this:
 
-## Deploy on Vercel
+```ts
+{
+  id: 'site-id',
+  title: 'Site Name',
+  url: 'example.com',
+  category: 'fashion',       // see SeedCategory type in types/index.ts
+  vibes: ['y2k', 'nostalgic'],
+  preferredYears: [2002, 2008],  // optional — narrows the year range
+  description: 'Optional one-liner shown on the portal card.',
+},
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Open `data/seeds.ts` and follow the comment block at the top of the file.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Deploy to Vercel
+
+1. Push this repo to GitHub.
+2. Go to [vercel.com](https://vercel.com) and sign in.
+3. Click **Add New Project** and import your GitHub repository.
+4. Keep the default Next.js build settings — no environment variables needed.
+5. Click **Deploy**.
+6. After deployment, copy the live URL and add it to this README.
+
+No environment variables are required. The app uses only the public Wayback Machine availability API.
+
+---
+
+## Disclaimer
+
+Way Back When is an independent project and is not affiliated with the Internet Archive. It uses public archival links from the Wayback Machine. All archived content is served via the Wayback Machine's public infrastructure.
+
+---
+
+## License
+
+MIT
