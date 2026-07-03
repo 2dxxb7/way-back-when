@@ -10,6 +10,14 @@ const RETRY_DELAY_MS = 400;
 export async function getRandomPortal(
   filters?: PortalFilters
 ): Promise<PortalResult | null> {
+  // Short-circuit: no point retrying if the filter itself matches nothing
+  const candidates = seedSites.filter(s => {
+    if (filters?.category && s.category !== filters.category) return false;
+    if (filters?.vibe && !s.vibes.includes(filters.vibe)) return false;
+    return true;
+  });
+  if (candidates.length === 0) return null;
+
   for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
     if (attempt > 0) {
       await delay(RETRY_DELAY_MS * attempt);
