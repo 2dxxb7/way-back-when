@@ -18,7 +18,11 @@ Every click is a lost room.
 
 ## Preview
 
-> Add screenshot here after deployment.
+![Home](public/screenshots/home.PNG)
+
+![Portal Result](public/screenshots/portal.PNG)
+
+![Saved Discoveries](public/screenshots/saved.PNG)
 
 ---
 
