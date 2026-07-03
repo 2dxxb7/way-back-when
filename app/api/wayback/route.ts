@@ -31,6 +31,10 @@ export async function GET(request: NextRequest) {
       next: { revalidate: 3600 },
     });
 
+    if (response.status === 429) {
+      return NextResponse.json({ error: 'rate_limited' }, { status: 429 });
+    }
+
     if (!response.ok) {
       return NextResponse.json(
         { error: `Archive API responded ${response.status}` },

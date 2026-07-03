@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { Hero } from '@/components/Hero';
 import { FilterBar } from '@/components/FilterBar';
 import { PortalCard } from '@/components/PortalCard';
@@ -17,6 +17,8 @@ export default function HomePage() {
   const [chaosMode, setChaosMode] = useState(false);
   const [savedPortals, setSavedPortals] = useState<PortalResult[]>([]);
   const [noMatches, setNoMatches] = useState(false);
+  const [rateLimited, setRateLimited] = useState(false);
+  const lastRequestRef = useRef(0);
 
   // Hydrate saved portals from localStorage after mount
   useEffect(() => {
@@ -24,7 +26,12 @@ export default function HomePage() {
   }, []);
 
   const handleOpen = useCallback(async () => {
+    const now = Date.now();
+    if (now - lastRequestRef.current < 2000) return;
+    lastRequestRef.current = now;
+
     setNoMatches(false);
+    setRateLimited(false);
     setPortalState({ status: 'loading' });
     try {
       const result = await getRandomPortal(chaosMode ? {} : filters);
@@ -37,7 +44,8 @@ export default function HomePage() {
         setNoMatches(hasFilters);
         setPortalState({ status: 'error' });
       }
-    } catch {
+    } catch (err) {
+      if (err instanceof Error && err.message === 'rate_limited') setRateLimited(true);
       setPortalState({ status: 'error' });
     }
   }, [chaosMode, filters]);
@@ -85,7 +93,7 @@ export default function HomePage() {
       {portalState.status === 'loading' && <LoadingPortal />}
 
       {portalState.status === 'error' && (
-        <ErrorState onRetry={handleOpen} noMatches={noMatches} />
+        <ErrorState onRetry={handleOpen} noMatches={noMatches} rateLimited={rateLimited} />
       )}
 
       {portalState.status === 'success' && (

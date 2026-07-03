@@ -12,6 +12,7 @@ export async function checkAvailability(
     `/api/wayback?url=${encodeURIComponent(url)}&timestamp=${timestamp}`
   );
 
+  if (response.status === 429) throw new Error('rate_limited');
   if (!response.ok) return null;
 
   let data: unknown;

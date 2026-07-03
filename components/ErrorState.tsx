@@ -3,28 +3,38 @@
 interface ErrorStateProps {
   onRetry: () => void;
   noMatches?: boolean;
+  rateLimited?: boolean;
 }
 
-export function ErrorState({ onRetry, noMatches = false }: ErrorStateProps) {
+export function ErrorState({ onRetry, noMatches = false, rateLimited = false }: ErrorStateProps) {
+  const title = rateLimited ? 'Rate Limited' : noMatches ? 'No Portals Found' : 'Signal Lost';
+  const body = rateLimited ? (
+    <>
+      Archive.org asked us to slow down.
+      <br />
+      Wait a moment, then try again.
+    </>
+  ) : noMatches ? (
+    <>
+      No portals match these filters.
+      <br />
+      Try loosening your search.
+    </>
+  ) : (
+    <>
+      The dead web didn't answer this time.
+      <br />
+      Try another jump.
+    </>
+  );
+
   return (
     <div className="border border-zinc-800 bg-zinc-900/40 p-8 text-center font-mono max-w-xl mx-auto">
       <div className="text-amber-500 text-xs tracking-widest uppercase mb-3">
-        {noMatches ? 'No Portals Found' : 'Signal Lost'}
+        {title}
       </div>
       <p className="text-zinc-400 text-sm mb-6 leading-relaxed">
-        {noMatches ? (
-          <>
-            No portals match these filters.
-            <br />
-            Try loosening your search.
-          </>
-        ) : (
-          <>
-            The dead web didn't answer this time.
-            <br />
-            Try another jump.
-          </>
-        )}
+        {body}
       </p>
       <button
         onClick={onRetry}
