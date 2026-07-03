@@ -12,7 +12,7 @@ Every click is a lost room.
 
 ## Live Demo
 
-Coming soon.
+[waybackwhen.app](https://waybackwhen.app/)
 
 ---
 
@@ -63,7 +63,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open `http://localhost:3000` in your browser.
 
 ```bash
 # Build for production
