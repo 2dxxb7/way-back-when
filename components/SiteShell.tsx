@@ -27,16 +27,21 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       </main>
 
       <footer className="border-t border-zinc-800/60 py-4 text-center font-mono text-xs text-zinc-700">
-        Powered by the{' '}
-        <a
-          href="https://archive.org"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-zinc-500 transition-colors"
-        >
-          Internet Archive Wayback Machine
-        </a>
-        {' '}· Not affiliated with archive.org
+        <div className="mb-1">
+          TOi // (U)ni System &middot; &copy; 2026 Christopher Remel Stokes Jr.
+        </div>
+        <div>
+          Powered by the{' '}
+          <a
+            href="https://archive.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-zinc-500 transition-colors"
+          >
+            Internet Archive Wayback Machine
+          </a>
+          {' '}&middot; Not affiliated with archive.org
+        </div>
       </footer>
     </div>
   );

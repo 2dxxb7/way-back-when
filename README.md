@@ -110,6 +110,14 @@ No environment variables are required. The app uses only the public Wayback Mach
 
 ---
 
+## Creator
+
+Created by **TOi** under the **(U)ni System**.
+
+© 2026 Christopher Remel Stokes Jr. All rights reserved.
+
+---
+
 ## Disclaimer
 
 Way Back When is an independent project and is not affiliated with the Internet Archive. It uses public archival links from the Wayback Machine. All archived content is served via the Wayback Machine's public infrastructure.

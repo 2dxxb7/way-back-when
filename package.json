@@ -2,6 +2,7 @@
   "name": "way-back-when",
   "version": "0.1.0",
   "private": true,
+  "author": "Christopher Remel Stokes Jr. (TOi / (U)ni System)",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

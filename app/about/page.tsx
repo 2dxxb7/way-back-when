@@ -52,6 +52,15 @@ export default function AboutPage() {
             Open that file and follow the instructions at the top.
           </p>
         </div>
+
+        <div className="border-t border-zinc-800/60 pt-6 mt-2">
+          <p className="text-zinc-600 text-xs leading-relaxed">
+            Way Back When is a dead-web archive portal created by TOi under the (U)ni System.
+          </p>
+          <p className="text-zinc-700 text-xs mt-2">
+            &copy; 2026 Christopher Remel Stokes Jr. All rights reserved.
+          </p>
+        </div>
       </div>
     </div>
   );
