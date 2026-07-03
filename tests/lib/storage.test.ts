@@ -1,6 +1,22 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { savePortal, getSavedPortals, removeSavedPortal, isPortalSaved } from '@/lib/storage';
 import type { PortalResult } from '@/types';
+
+// Provide a proper in-memory localStorage since jsdom's built-in requires extra config
+const createLocalStorageMock = () => {
+  let store: Record<string, string> = {};
+  return {
+    getItem: (key: string): string | null => store[key] ?? null,
+    setItem: (key: string, value: string): void => { store[key] = value; },
+    removeItem: (key: string): void => { delete store[key]; },
+    clear: (): void => { store = {}; },
+    get length() { return Object.keys(store).length; },
+    key: (n: number): string | null => Object.keys(store)[n] ?? null,
+  };
+};
+
+const localStorageMock = createLocalStorageMock();
+vi.stubGlobal('localStorage', localStorageMock);
 
 const mockPortal: PortalResult = {
   seedId: 'hypebeast',
@@ -24,7 +40,7 @@ const mockPortal2: PortalResult = {
 };
 
 beforeEach(() => {
-  localStorage.clear();
+  localStorageMock.clear();
 });
 
 describe('getSavedPortals', () => {
