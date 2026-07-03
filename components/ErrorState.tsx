@@ -12,9 +12,19 @@ export function ErrorState({ onRetry, noMatches = false }: ErrorStateProps) {
         {noMatches ? 'No Portals Found' : 'Signal Lost'}
       </div>
       <p className="text-zinc-400 text-sm mb-6 leading-relaxed">
-        {noMatches
-          ? 'No portals match these filters.\nTry loosening your search.'
-          : "The dead web didn't answer this time.\nTry another jump."}
+        {noMatches ? (
+          <>
+            No portals match these filters.
+            <br />
+            Try loosening your search.
+          </>
+        ) : (
+          <>
+            The dead web didn't answer this time.
+            <br />
+            Try another jump.
+          </>
+        )}
       </p>
       <button
         onClick={onRetry}
