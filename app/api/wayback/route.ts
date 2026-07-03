@@ -9,6 +9,15 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'url is required' }, { status: 400 });
   }
 
+  try {
+    const parsed = new URL(url.startsWith('http') ? url : `https://${url}`);
+    if (!['http:', 'https:'].includes(parsed.protocol)) {
+      return NextResponse.json({ error: 'invalid url' }, { status: 400 });
+    }
+  } catch {
+    return NextResponse.json({ error: 'invalid url' }, { status: 400 });
+  }
+
   const archiveUrl =
     `https://archive.org/wayback/available` +
     `?url=${encodeURIComponent(url)}` +

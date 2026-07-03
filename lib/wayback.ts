@@ -14,8 +14,13 @@ export async function checkAvailability(
 
   if (!response.ok) return null;
 
-  const data = await response.json();
-  const closest = data?.archived_snapshots?.closest;
+  let data: unknown;
+  try {
+    data = await response.json();
+  } catch {
+    return null;
+  }
+  const closest = (data as { archived_snapshots?: { closest?: { available?: boolean; url?: string; timestamp?: string } } })?.archived_snapshots?.closest;
 
   if (!closest?.available || !closest.url) return null;
 

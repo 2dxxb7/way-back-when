@@ -45,7 +45,8 @@ export default function HomePage() {
   // Space bar to reroll
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.code === 'Space' && e.target === document.body) {
+      const t = e.target as HTMLElement;
+      if (e.code === 'Space' && !(['INPUT', 'TEXTAREA', 'SELECT'].includes(t.tagName) || t.isContentEditable)) {
         e.preventDefault();
         handleOpen();
       }

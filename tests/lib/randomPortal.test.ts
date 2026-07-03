@@ -49,6 +49,22 @@ describe('getRandomPortal', () => {
     const result = await promise;
 
     expect(result).toBeNull();
+    expect(checkAvailability).toHaveBeenCalledTimes(3);
+  });
+
+  it('retries and succeeds on 2nd attempt', async () => {
+    vi.mocked(checkAvailability)
+      .mockResolvedValueOnce(null)
+      .mockResolvedValue({
+        url: 'http://example.com/',
+        timestamp: '20100101000000',
+        available: true,
+      });
+    const promise = getRandomPortal();
+    await vi.runAllTimersAsync();
+    const result = await promise;
+    expect(result).not.toBeNull();
+    expect(checkAvailability).toHaveBeenCalledTimes(2);
   });
 
   it('respects category filter', async () => {
